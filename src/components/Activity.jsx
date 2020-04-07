@@ -18,8 +18,8 @@ const Activity = ({ activity, name, setActivity }) => (
 
 
 const mapStateToProps = state => {
-    const { activity } = state;
-    return activity
+    const { activity, name } = state;
+    return { activity, name }
 }
 export default connect(
     mapStateToProps, // mapStateToProps - What do I want?
