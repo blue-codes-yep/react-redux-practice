@@ -1,40 +1,42 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { addCat } from "../redux/actions"
+import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import { addCat } from '../redux/actions'
+
 
 class AddCat extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { input: "" };
+    state = {
+        petName: '',
+        activity: ''
     }
 
-    updateInput = input => {
-        this.setState({ input });
-    };
-
-    handleAddCat = () => {
-        this.props.addCat(this.state.input)
-
-        this.setState({ input: '' })
+    handleChange = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
     }
+
+    handleSubmit = e => {
+        e.preventDefault();
+        const { petName, activity } = this.state;
+        this.props.addCat({ name: petName, activity })
+        this.setState({
+            petName: '',
+            activity: ''
+        })
+    }
+
+
     render() {
+        const { petName, activity } = this.state
         return (
-            <div>
-                <input
-                    onChange={e => this.updateInput(e.target.value)}
-                    value={this.state.input}
-                />
-                <button className="add-cat" onClick={this.handleAddCat}>
-                    Add Cat
-                  </button>
-            </div>
+            <form onSubmit={this.handleSubmit}>
+                <input type="text" name="petName" placeholder="Cat's Name" onChange={this.handleChange} value={petName} />
+                is
+                <input type="text" name="activity" placeholder="Activity" onChange={this.handleChange} value={activity} />
+                <button type="submit">Submit</button>
+            </form>
         )
     }
-};
-
 }
 
-export default connect(
-    null, // mapStateToProps
-    { addCat } // mapDispatchToProps)
-)(AddCat);
+export default connect(null, { addCat })(AddCat);

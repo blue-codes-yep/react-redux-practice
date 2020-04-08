@@ -1,8 +1,9 @@
 import { ACTION_SET_ACTIVITY, ACTION_SET_NAME, ACTION_ADD_CAT } from './actionTypes';
 
-export const setActivity = activity => ({
+export const setActivity = ({ id, activity }) => ({
     type: ACTION_SET_ACTIVITY,
     payload: {
+        id,
         activity
     }
 })
@@ -14,9 +15,10 @@ export const setName = name => ({
     }
 })
 
-export const addCat = cat => ({
+export const addCat = ({ name, activity }) => ({
     type: ACTION_ADD_CAT,
     payload: {
-        cat
+        name,
+        activity
     }
 })
